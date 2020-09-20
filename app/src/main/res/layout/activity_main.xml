@@ -1,114 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvFurther"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text=""
+        android:textAlignment="textEnd"
+        android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="32dp"
-            android:layout_marginTop="16dp"
-            android:text="Hello World!"
-            android:textAlignment="textEnd"
-            android:textSize="32sp" />
+    <TextView
+        android:id="@+id/tvMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text=""
+        android:textAlignment="textEnd"
+        android:textSize="32sp" />
 
-        <LinearLayout style="@style/horizontalLeanerLayouts">
+    <LinearLayout
+        style="@style/horizontalLeanerLayouts"
+        android:layout_marginTop="16dp">
 
-            <Button
-                style="@style/calcButtons"
-                android:text="Clear" />
+        <Button
+            android:id="@+id/btnClear"
+            style="@style/calcButtons"
+            android:text="Clear" />
 
-            <Button
-                style="@style/calcButtons"
-                android:text="Del" />
-        </LinearLayout>
-
-
-        <LinearLayout style="@style/horizontalLeanerLayouts">
-
-            <Button
-                style="@style/calcButtons"
-                android:text="1" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="2" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="3" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="+" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/horizontalLeanerLayouts">
-
-            <Button
-                style="@style/calcButtons"
-                android:text="4" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="5" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="6" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="-" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/horizontalLeanerLayouts">
-
-            <Button
-                style="@style/calcButtons"
-                android:text="7" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="8" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="9" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="*" />
-        </LinearLayout>
-
-        <LinearLayout style="@style/horizontalLeanerLayouts">
-
-            <Button
-                style="@style/calcButtons"
-                android:text="." />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="0" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="=" />
-
-            <Button
-                style="@style/calcButtons"
-                android:text="/" />
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/btnDel"
+            style="@style/calcButtons"
+            android:text="Del" />
     </LinearLayout>
 
 
-</RelativeLayout>
+    <LinearLayout style="@style/horizontalLeanerLayouts">
+
+        <Button
+            android:id="@+id/btnOne"
+            style="@style/calcButtons"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/btnTwo"
+            style="@style/calcButtons"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/btnThree"
+            style="@style/calcButtons"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/btnPlus"
+            style="@style/calcButtons"
+            android:text="+" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/horizontalLeanerLayouts">
+
+        <Button
+            android:id="@+id/btnFour"
+            style="@style/calcButtons"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/btnFive"
+            style="@style/calcButtons"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/btnSix"
+            style="@style/calcButtons"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/btnMinus"
+            style="@style/calcButtons"
+            android:text="-" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/horizontalLeanerLayouts">
+
+        <Button
+            android:id="@+id/btnSeven"
+            style="@style/calcButtons"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/btnEight"
+            style="@style/calcButtons"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/btnNine"
+            style="@style/calcButtons"
+            android:text="9" />
+
+        <Button
+            android:id="@+id/btnMultiply"
+            style="@style/calcButtons"
+            android:text="*" />
+    </LinearLayout>
+
+    <LinearLayout style="@style/horizontalLeanerLayouts">
+
+        <Button
+            android:id="@+id/btnPoint"
+            style="@style/calcButtons"
+            android:text="." />
+
+        <Button
+            android:id="@+id/btnZero"
+            style="@style/calcButtons"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/btnEqual"
+            style="@style/calcButtons"
+            android:text="=" />
+
+        <Button
+            android:id="@+id/btnDivision"
+            style="@style/calcButtons"
+            android:text="/" />
+    </LinearLayout>
+
+</LinearLayout>
