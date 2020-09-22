@@ -8,10 +8,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Calculator calculator;
+    private Calculator calculator = new Calculator();
 
-    TextView tvMain;
-    TextView tvFurther;
+    private TextView tvMain;
+    private TextView tvFurther;
+
+    //create OnClickListeners for buttons
+    private View.OnClickListener symbolicButtonsListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            calculator.addSymbol(v.getId());
+            tvMain.setText(calculator.getNumberStr());
+        }
+    };
+    private View.OnClickListener operationButtonsListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            calculator.selectOperation(v.getId());
+            tvMain.setText(calculator.getNumberStr());
+            tvFurther.setText(calculator.getStateStr());
+        }
+    };
+    private View.OnClickListener clearButtonsListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            calculator.delSymbols(v.getId());
+            tvMain.setText(calculator.getNumberStr());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //init
-        calculator = new Calculator();
         tvMain = findViewById(R.id.tvMain);
         tvMain.setText(calculator.getNumberStr());
         tvFurther = findViewById(R.id.tvFurther);
@@ -47,28 +70,6 @@ public class MainActivity extends AppCompatActivity {
         int[] clearButtonIds = new int[]{
                 R.id.btnClear,
                 R.id.btnDel
-        };
-
-        //create OnClickListeners for buttons
-        View.OnClickListener symbolicButtonsListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculator.addSymbol(v.getId());
-                tvMain.setText(calculator.getNumberStr());
-            }
-        };
-        View.OnClickListener operationButtonsListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //todo
-            }
-        };
-        View.OnClickListener clearButtonsListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calculator.delSymbols(v.getId());
-                tvMain.setText(calculator.getNumberStr());
-            }
         };
 
         //set OnClickListeners for buttons
