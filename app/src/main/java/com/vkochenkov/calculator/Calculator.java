@@ -7,18 +7,22 @@ public class Calculator {
 
     private float firstNumber;
     private float secondNumber;
-    private String numberStr = "";
+    private String numberStr = "0";
     private String stateStr = "";
     private Operation operation;
 
+    public Calculator() {
+        this.operation = Operation.DEFAULT;
+    }
+
     public void addSymbol(int viewId) {
+        if (operation!= Operation.DEFAULT) {
+            numberStr = "";
+        }
         if (numberStr.equals("0")) {
             numberStr = "";
         }
-        if (numberStr.equals("Infinity")) {
-            numberStr = "";
-        }
-        if (numberStr.length() < 10) {
+        if (numberStr.length() < 12) {
             switch (viewId) {
                 case R.id.btnZero:
                     numberStr += "0";
@@ -81,25 +85,22 @@ public class Calculator {
             case R.id.btnPlus:
                 firstNumber = Float.parseFloat(numberStr);
                 operation = Operation.ADDITION;
-                numberStr = "";
                 break;
             case R.id.btnMinus:
                 firstNumber = Float.parseFloat(numberStr);
                 operation = Operation.SUBTRACTION;
-                numberStr = "";
                 break;
             case R.id.btnMultiply:
                 firstNumber = Float.parseFloat(numberStr);
                 operation = Operation.MULTIPLICATION;
-                numberStr = "";
                 break;
             case R.id.btnDivision:
                 firstNumber = Float.parseFloat(numberStr);
                 operation = Operation.DIVISION;
-                numberStr = "";
                 break;
             case R.id.btnEqual:
                 secondNumber = Float.parseFloat(numberStr);
+                operation = Operation.EQUALS;
                 calculate(operation);
                 break;
         }
