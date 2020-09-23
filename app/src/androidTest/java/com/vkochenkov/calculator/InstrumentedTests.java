@@ -38,4 +38,16 @@ public class InstrumentedTests {
         //then
         onView(allOf(withId(R.id.tvMain), withText("1234567890."))).check(matches(isDisplayed()));
     }
+
+    @Test
+    public void checkAddingOperation() {
+        //when
+        onView(withId(R.id.btnOne)).perform(click());
+        onView(withId(R.id.btnPlus)).perform(click());
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnEqual)).perform(click());
+
+        //then
+        onView(allOf(withId(R.id.tvMain), withText("3.0"))).check(matches(isDisplayed()));
+    }
 }

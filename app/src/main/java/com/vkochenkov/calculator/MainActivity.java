@@ -8,32 +8,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Calculator calculator = new Calculator();
+    private CalculatorService calculator = new CalculatorService();
 
-    private TextView tvMain;
-    private TextView tvFurther;
+    private TextView numberText;
+    private TextView logText;
 
     //create OnClickListeners for buttons
     private View.OnClickListener symbolicButtonsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             calculator.addSymbol(v.getId());
-            tvMain.setText(calculator.getNumberStr());
+            numberText.setText(calculator.getNumberStr());
         }
     };
     private View.OnClickListener operationButtonsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             calculator.selectOperation(v.getId());
-            tvMain.setText(calculator.getNumberStr());
-            tvFurther.setText(calculator.getStateStr());
+            numberText.setText(calculator.getNumberStr());
         }
     };
     private View.OnClickListener clearButtonsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             calculator.delSymbols(v.getId());
-            tvMain.setText(calculator.getNumberStr());
+            numberText.setText(calculator.getNumberStr());
         }
     };
 
@@ -44,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //init
-        tvMain = findViewById(R.id.tvMain);
-        tvMain.setText(calculator.getNumberStr());
-        tvFurther = findViewById(R.id.tvFurther);
+        numberText = findViewById(R.id.tvMain);
+        numberText.setText(calculator.getNumberStr());
+        logText = findViewById(R.id.tvFurther);
         int[] symbolicButtonIds = new int[]{
                 R.id.btnZero,
                 R.id.btnOne,

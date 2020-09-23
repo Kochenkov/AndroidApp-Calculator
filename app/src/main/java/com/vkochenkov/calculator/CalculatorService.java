@@ -3,21 +3,24 @@ package com.vkochenkov.calculator;
 import lombok.Getter;
 
 @Getter
-public class Calculator {
+public class CalculatorService {
 
     private float firstNumber;
     private float secondNumber;
     private String numberStr = "0";
-    private String stateStr = "";
+    private String logStr = "";
     private Operation operation;
+    private InputState inputState;
 
-    public Calculator() {
+    public CalculatorService() {
         this.operation = Operation.DEFAULT;
+        this.inputState = InputState.ALLOW_INPUT_NUMBER;
     }
 
     public void addSymbol(int viewId) {
-        if (operation!= Operation.DEFAULT) {
+        if (inputState != InputState.ALLOW_INPUT_NUMBER) {
             numberStr = "";
+            inputState = InputState.ALLOW_INPUT_NUMBER;
         }
         if (numberStr.equals("0")) {
             numberStr = "";
@@ -80,7 +83,6 @@ public class Calculator {
     }
 
     public void selectOperation(int viewId) {
-        //todo - креш если выбрать минус после любой операции
         switch (viewId) {
             case R.id.btnPlus:
                 firstNumber = Float.parseFloat(numberStr);
@@ -100,10 +102,10 @@ public class Calculator {
                 break;
             case R.id.btnEqual:
                 secondNumber = Float.parseFloat(numberStr);
-                operation = Operation.EQUALS;
                 calculate(operation);
                 break;
         }
+        inputState = InputState.NUMBER_WAS_INPUTTED;
     }
 
     private void calculate(Operation operation) {
