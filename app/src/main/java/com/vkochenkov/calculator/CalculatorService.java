@@ -7,20 +7,22 @@ public class CalculatorService {
 
     private float firstNumber;
     private float secondNumber;
+
     private String numberStr = "0";
     private String logStr = "";
+
     private Operation operation;
-    private InputState inputState;
+    private boolean numberInputCompleted;
 
     public CalculatorService() {
         this.operation = Operation.DEFAULT;
-        this.inputState = InputState.ALLOW_INPUT_NUMBER;
+        this.numberInputCompleted = false;
     }
 
     public void addSymbol(int viewId) {
-        if (inputState != InputState.ALLOW_INPUT_NUMBER) {
+        if (numberInputCompleted) {
             numberStr = "";
-            inputState = InputState.ALLOW_INPUT_NUMBER;
+            numberInputCompleted = false;
         }
         if (numberStr.equals("0")) {
             numberStr = "";
@@ -72,61 +74,78 @@ public class CalculatorService {
     public void delSymbols(int viewId) {
         switch (viewId) {
             case R.id.btnDel:
-                if (numberStr.length() > 0) {
+                if (numberStr.length() > 1) {
                     numberStr = numberStr.substring(0, numberStr.length() - 1);
+                } else {
+                    numberStr = "0";
                 }
                 break;
             case R.id.btnClear:
-                numberStr = "";
+                numberStr = "0";
+                logStr = "";
                 break;
         }
     }
 
     public void selectOperation(int viewId) {
-        switch (viewId) {
-            case R.id.btnPlus:
-                firstNumber = Float.parseFloat(numberStr);
-                operation = Operation.ADDITION;
-                break;
-            case R.id.btnMinus:
-                firstNumber = Float.parseFloat(numberStr);
-                operation = Operation.SUBTRACTION;
-                break;
-            case R.id.btnMultiply:
-                firstNumber = Float.parseFloat(numberStr);
-                operation = Operation.MULTIPLICATION;
-                break;
-            case R.id.btnDivision:
-                firstNumber = Float.parseFloat(numberStr);
-                operation = Operation.DIVISION;
-                break;
-            case R.id.btnEqual:
-                secondNumber = Float.parseFloat(numberStr);
-                calculate(operation);
-                break;
+        if (!numberStr.equals("")) {
+            switch (viewId) {
+                case R.id.btnChangeSign:
+                    //todo
+                    break;
+                case R.id.btnPlus:
+                    firstNumber = Float.parseFloat(numberStr);
+                    operation = Operation.ADDITION;
+                    logStr = firstNumber + operation.getSymbol();
+                    break;
+                case R.id.btnMinus:
+                    firstNumber = Float.parseFloat(numberStr);
+                    operation = Operation.SUBTRACTION;
+                    logStr = firstNumber + operation.getSymbol();
+                    break;
+                case R.id.btnMultiply:
+                    firstNumber = Float.parseFloat(numberStr);
+                    operation = Operation.MULTIPLICATION;
+                    logStr = firstNumber + operation.getSymbol();
+                    break;
+                case R.id.btnDivision:
+                    firstNumber = Float.parseFloat(numberStr);
+                    operation = Operation.DIVISION;
+                    logStr = firstNumber + operation.getSymbol();
+                    break;
+                case R.id.btnEqual:
+                    secondNumber = Float.parseFloat(numberStr);
+                    calculate(operation);
+                    if (operation!=Operation.EQUALS) {
+                        logStr = firstNumber + operation.getSymbol() + secondNumber + Operation.EQUALS.getSymbol() + numberStr;
+                    }
+                    operation = Operation.EQUALS;
+                    break;
+            }
+            numberInputCompleted = true;
+        } else {
+            logStr = "Something went wrong!";
         }
-        inputState = InputState.NUMBER_WAS_INPUTTED;
+
     }
 
     private void calculate(Operation operation) {
-        float answer;
+        float answer = secondNumber;
         switch (operation) {
             case ADDITION:
                 answer = firstNumber + secondNumber;
-                numberStr = Float.toString(answer);
                 break;
             case SUBTRACTION:
                 answer = firstNumber - secondNumber;
-                numberStr = Float.toString(answer);
                 break;
             case MULTIPLICATION:
                 answer = firstNumber * secondNumber;
-                numberStr = Float.toString(answer);
                 break;
             case DIVISION:
                 answer = firstNumber / secondNumber;
-                numberStr = Float.toString(answer);
                 break;
         }
+        numberStr = Float.toString(answer);
+
     }
 }

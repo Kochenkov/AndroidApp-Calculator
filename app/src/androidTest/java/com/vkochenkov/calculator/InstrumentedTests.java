@@ -40,14 +40,65 @@ public class InstrumentedTests {
     }
 
     @Test
-    public void checkAddingOperation() {
+    public void checkAddingOp() {
         //when
         onView(withId(R.id.btnOne)).perform(click());
         onView(withId(R.id.btnPlus)).perform(click());
         onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnTwo)).perform(click());
         onView(withId(R.id.btnEqual)).perform(click());
 
         //then
-        onView(allOf(withId(R.id.tvMain), withText("3.0"))).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.tvMain), withText("23.0"))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkSubtractionOp() {
+        //when
+        onView(withId(R.id.btnOne)).perform(click());
+        onView(withId(R.id.btnMinus)).perform(click());
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnEqual)).perform(click());
+
+        //then
+        onView(allOf(withId(R.id.tvMain), withText("-21.0"))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkMultiplicationOp() {
+        //when
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnMultiply)).perform(click());
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnEqual)).perform(click());
+
+        //then
+        onView(allOf(withId(R.id.tvMain), withText("4.0"))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkDivisionOp() {
+        //when
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnDivision)).perform(click());
+        onView(withId(R.id.btnThree)).perform(click());
+        onView(withId(R.id.btnEqual)).perform(click());
+
+        //then
+        onView(allOf(withId(R.id.tvMain), withText("7.3333335"))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkZeroDivisionOp() {
+        //when
+        onView(withId(R.id.btnTwo)).perform(click());
+        onView(withId(R.id.btnDivision)).perform(click());
+        onView(withId(R.id.btnZero)).perform(click());
+        onView(withId(R.id.btnEqual)).perform(click());
+
+        //then
+        onView(allOf(withId(R.id.tvMain), withText("Infinity"))).check(matches(isDisplayed()));
     }
 }

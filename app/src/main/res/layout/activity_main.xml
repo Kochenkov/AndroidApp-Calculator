@@ -39,7 +39,14 @@
         <Button
             android:id="@+id/btnDel"
             style="@style/calcButtons"
+            android:layout_weight="0.5"
             android:text="Del" />
+
+        <Button
+            android:id="@+id/btnChangeSign"
+            style="@style/calcButtons"
+            android:layout_weight="0.5"
+            android:text="+/-"/>
     </LinearLayout>
 
 
