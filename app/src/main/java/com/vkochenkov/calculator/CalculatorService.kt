@@ -1,10 +1,10 @@
 package com.vkochenkov.calculator
 
-class CalculatorService (var numberStr: String = "0", var logStr: String = "") {
+class CalculatorService(var numberStr: String = "0", var logStr: String = "") {
     private var firstNumber = 0f
     private var secondNumber = 0f
-    private var operation: Operation
-    private var numberInputCompleted: Boolean
+    private var operation: Operation = Operation.DEFAULT
+    private var numberInputCompleted: Boolean = false
 
     fun addSymbol(viewId: Int) {
         if (numberInputCompleted) {
@@ -40,10 +40,15 @@ class CalculatorService (var numberStr: String = "0", var logStr: String = "") {
 
     fun delSymbols(viewId: Int) {
         when (viewId) {
-            R.id.btnDel -> numberStr = if (numberStr.length > 1) {
-                numberStr.substring(0, numberStr.length - 1)
-            } else {
-                "0"
+            R.id.btnDel -> {
+                if (numberStr.contains("Infinity").not() and numberStr.contains("NaN").not()) {
+                    numberStr =
+                            if (numberStr.length > 1) {
+                                numberStr.substring(0, numberStr.length - 1)
+                            } else {
+                                "0"
+                            }
+                }
             }
             R.id.btnClear -> {
                 numberStr = "0"
@@ -56,29 +61,30 @@ class CalculatorService (var numberStr: String = "0", var logStr: String = "") {
         if (numberStr != "") {
             when (viewId) {
                 R.id.btnChangeSign -> {
+                    //todo
                 }
                 R.id.btnPlus -> {
-                    firstNumber = numberStr.toFloat()
+                    firstNumber = tryNumberStringToFloat()
                     operation = Operation.ADDITION
                     logStr = firstNumber.toString() + operation.symbol
                 }
                 R.id.btnMinus -> {
-                    firstNumber = numberStr.toFloat()
+                    firstNumber = tryNumberStringToFloat()
                     operation = Operation.SUBTRACTION
                     logStr = firstNumber.toString() + operation.symbol
                 }
                 R.id.btnMultiply -> {
-                    firstNumber = numberStr.toFloat()
+                    firstNumber = tryNumberStringToFloat()
                     operation = Operation.MULTIPLICATION
                     logStr = firstNumber.toString() + operation.symbol
                 }
                 R.id.btnDivision -> {
-                    firstNumber = numberStr.toFloat()
+                    firstNumber = tryNumberStringToFloat()
                     operation = Operation.DIVISION
                     logStr = firstNumber.toString() + operation.symbol
                 }
                 R.id.btnEqual -> {
-                    secondNumber = numberStr.toFloat()
+                    secondNumber = tryNumberStringToFloat()
                     calculate(operation)
                     if (operation !== Operation.EQUALS) {
                         logStr = firstNumber.toString() + operation.symbol + secondNumber + Operation.EQUALS.symbol + numberStr
@@ -103,8 +109,13 @@ class CalculatorService (var numberStr: String = "0", var logStr: String = "") {
         numberStr = java.lang.Float.toString(answer)
     }
 
-    init {
-        operation = Operation.DEFAULT
-        numberInputCompleted = false
+    private fun tryNumberStringToFloat(): Float {
+        var targetField: Float = 0f
+        try {
+            targetField = numberStr.toFloat()
+        } catch (e: NumberFormatException) {
+            logStr = "Something went wrong!"
+        }
+        return targetField
     }
 }
