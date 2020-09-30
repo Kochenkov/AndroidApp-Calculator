@@ -1,10 +1,14 @@
 package com.vkochenkov.calculator
 
+const val ERROR_MESSAGE: String = "Something went wrong!"
+
 class CalculatorService(var numberStr: String = "0", var logStr: String = "") {
+
     private var firstNumber = 0f
     private var secondNumber = 0f
-    private var operation: Operation = Operation.DEFAULT
-    private var numberInputCompleted: Boolean = false
+    private var operation = Operation.DEFAULT
+    private var numberInputCompleted = false
+
 
     fun addSymbol(viewId: Int) {
         if (numberInputCompleted) {
@@ -61,7 +65,19 @@ class CalculatorService(var numberStr: String = "0", var logStr: String = "") {
         if (numberStr != "") {
             when (viewId) {
                 R.id.btnChangeSign -> {
-                    //todo
+                    val number: Float = tryNumberStringToFloat()
+                    numberStr =
+                            when {
+                                number > 0 -> {
+                                    (number * (-1)).toString()
+                                }
+                                number < 0 -> {
+                                    (number * (-1)).toString()
+                                }
+                                else -> {
+                                    "0"
+                                }
+                            }
                 }
                 R.id.btnPlus -> {
                     firstNumber = tryNumberStringToFloat()
@@ -94,7 +110,7 @@ class CalculatorService(var numberStr: String = "0", var logStr: String = "") {
             }
             numberInputCompleted = true
         } else {
-            logStr = "Something went wrong!"
+            logStr = ERROR_MESSAGE
         }
     }
 
@@ -110,11 +126,11 @@ class CalculatorService(var numberStr: String = "0", var logStr: String = "") {
     }
 
     private fun tryNumberStringToFloat(): Float {
-        var targetField: Float = 0f
+        var targetField = 0f
         try {
             targetField = numberStr.toFloat()
         } catch (e: NumberFormatException) {
-            logStr = "Something went wrong!"
+            logStr = ERROR_MESSAGE
         }
         return targetField
     }
